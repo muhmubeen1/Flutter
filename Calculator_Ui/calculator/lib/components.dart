@@ -22,7 +22,7 @@ class _MYButtonState extends State<MYButton> {
       child: InkWell(
         onTap: widget.onpress,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 5),
           child: Container(
             height: 80,
             decoration: BoxDecoration(

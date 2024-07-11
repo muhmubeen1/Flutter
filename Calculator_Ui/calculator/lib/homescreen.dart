@@ -1,5 +1,6 @@
 import 'package:calculator/components.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var userInput = "";
   var result = "";
+  var length = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,16 +28,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        userInput.toString(),
-                        style:
-                            const TextStyle(fontSize: 30, color: Colors.white),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          userInput.toString(),
+                          style: const TextStyle(
+                              fontSize: 30, color: Colors.white),
+                        ),
                       ),
-                      Text(
-                        userInput.toString(),
-                        style:
-                            const TextStyle(fontSize: 30, color: Colors.white),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          result.toString(),
+                          style: const TextStyle(
+                              fontSize: 30, color: Colors.white),
+                        ),
                       )
                     ],
                   ),
@@ -50,26 +60,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         MYButton(
                           title: "AC",
                           onpress: () {
-                            print("tab");
+                            userInput = "";
+                            result = "";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "+/-",
                           onpress: () {
-                            print("tab");
+                            userInput += "+/-";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "%",
                           onpress: () {
-                            print("tab");
+                            userInput += "%";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "/",
                           color: Colors.deepOrange,
                           onpress: () {
-                            print("tab");
+                            userInput += "/";
+                            setState(() {});
                           },
                         ),
                       ],
@@ -79,26 +94,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         MYButton(
                           title: "7",
                           onpress: () {
-                            print("tab");
+                            userInput += "7";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "8",
                           onpress: () {
-                            print("tab");
+                            userInput += "8";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "9",
                           onpress: () {
-                            print("tab");
+                            userInput += "9";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "x",
                           color: Colors.deepOrange,
                           onpress: () {
-                            print("tab");
+                            userInput += "*";
+                            setState(() {});
                           },
                         ),
                       ],
@@ -108,26 +127,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         MYButton(
                           title: "4",
                           onpress: () {
-                            print("tab");
+                            userInput += "4";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "5",
                           onpress: () {
-                            print("tab");
+                            userInput += "5";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "6",
                           onpress: () {
-                            print("tab");
+                            userInput += "6";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "--",
                           color: Colors.deepOrange,
                           onpress: () {
-                            print("tab");
+                            userInput += "-";
+                            setState(() {});
                           },
                         ),
                       ],
@@ -137,26 +160,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         MYButton(
                           title: "1",
                           onpress: () {
-                            print("tab");
+                            userInput += "1";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "2",
                           onpress: () {
-                            print("tab");
+                            userInput += "2";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "3",
                           onpress: () {
-                            print("tab");
+                            userInput += "3";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "+",
                           color: Colors.deepOrange,
                           onpress: () {
-                            print("tab");
+                            userInput += "+";
+                            setState(() {});
                           },
                         ),
                       ],
@@ -166,26 +193,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         MYButton(
                           title: "0",
                           onpress: () {
-                            print("tab");
+                            userInput += "0";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: ".",
                           onpress: () {
-                            print("tab");
+                            userInput += ".";
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "DEL",
                           onpress: () {
-                            print("tab");
+                            length = userInput.length;
+                            userInput = userInput.substring(0, length - 1);
+                            setState(() {});
                           },
                         ),
                         MYButton(
                           title: "=",
                           color: Colors.deepOrange,
                           onpress: () {
-                            print("tab");
+                            equalPressed();
+                            setState(() {});
                           },
                         ),
                       ],
@@ -198,5 +230,14 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
       ),
     );
+  }
+
+  void equalPressed() {
+    Parser p = Parser();
+    // user input is expression
+    Expression expression = p.parse(userInput);
+    ContextModel contextModel = ContextModel();
+    double eval = expression.evaluate(EvaluationType.REAL, contextModel);
+    result = eval.toString();
   }
 }
