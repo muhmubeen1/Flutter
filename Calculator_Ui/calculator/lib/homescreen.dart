@@ -9,6 +9,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var userInput = "";
+  var result = "";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,6 +23,26 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    children: [
+                      Text(
+                        userInput.toString(),
+                        style:
+                            const TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                      Text(
+                        userInput.toString(),
+                        style:
+                            const TextStyle(fontSize: 30, color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
                 child: Column(
                   children: [
                     Row(
