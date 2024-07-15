@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/homeScreen.dart';
+import 'package:project/studentView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +13,7 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final ageController = TextEditingController();
+  final userType = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +75,20 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       )),
                 ),
+                TextFormField(
+                  controller: userType,
+                  decoration: const InputDecoration(
+                      hintText: "usertype",
+                      prefixIcon: Icon(Icons.collections),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      )),
+                ),
               ],
             ),
           ),
@@ -87,13 +103,21 @@ class _LoginState extends State<Login> {
                 sp.setString("email", emailController.text.toString());
                 sp.setString("password", passwordController.text.toString());
                 sp.setString("age", ageController.text.toString());
+                sp.setString("usertype", userType.text.toString());
                 sp.setBool("isLogin", true);
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ));
+                if (sp.getString("usertype") == "student") {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const StudentView(),
+                      ));
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ));
+                }
 
                 // print(sp.getString("name"));
                 // print(sp.getInt("age"));
