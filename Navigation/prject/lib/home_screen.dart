@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Center(
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.secondScreen);
+                  Navigator.pushNamed(context, RoutesName.secondScreen,
+                      arguments: {'Node': 'JVM', 'Dev': ' App Development'});
                 },
                 child: Container(
                   height: 50,

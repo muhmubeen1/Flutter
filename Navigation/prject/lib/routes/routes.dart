@@ -10,7 +10,10 @@ class Routes {
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (context) => HomeScreen());
       case RoutesName.secondScreen:
-        return MaterialPageRoute(builder: (context) => ScreenTwo());
+        return MaterialPageRoute(
+            builder: (context) => ScreenTwo(
+                  data: setting.arguments as Map,
+                ));
       case RoutesName.thirdScreen:
         return MaterialPageRoute(builder: (context) => ScreenThree());
 

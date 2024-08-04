@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class ScreenTwo extends StatefulWidget {
   // var name;
   // int age;
+  dynamic data;
   ScreenTwo({
     Key? key,
+    required this.data,
   }) : super(key: key);
   @override
   State<ScreenTwo> createState() => _ScreenTwoState();
@@ -20,7 +22,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Screen Two"),
+          title: Text(widget.data["Dev"]),
           centerTitle: true,
           backgroundColor: Colors.amber,
         ),

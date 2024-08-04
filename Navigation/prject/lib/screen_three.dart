@@ -13,7 +13,7 @@ class _ScreenThreeState extends State<ScreenThree> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("HomeScreen"),
+          title: Text("ScreenThree"),
           centerTitle: true,
           backgroundColor: Colors.amber,
         ),
