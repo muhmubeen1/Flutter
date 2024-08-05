@@ -32,16 +32,18 @@ List<String> productPrices = [
 ];
 // List of product images
 List<String> productImages = [
-  'https://pngimg.com/uploads/apple/apple_PNG12405.png', // Apple
-  'https://www.vecteezy.com/png/4323946-banana', // Banana
-  'https://www.vecteezy.com/png/2951475-cherry', // Cherry
-  'https://www.vecteezy.com/png/4719835-date', // Date
-  'https://www.vecteezy.com/png/4717488-elderberry', // Elderberry
-  'https://www.vecteezy.com/png/4202822-fig', // Fig
-  'https://www.vecteezy.com/png/4325930-grapes' // Grapes
+  './images/apple.png', // Apple
+//   'https://www.vecteezy.com/png/4323946-banana', // Banana
+//   'https://www.vecteezy.com/png/2951475-cherry', // Cherry
+//   'https://www.vecteezy.com/png/4719835-date', // Date
+//   'https://www.vecteezy.com/png/4717488-elderberry', // Elderberry
+//   'https://www.vecteezy.com/png/4202822-fig', // Fig
+//   'https://www.vecteezy.com/png/4325930-grapes' // Grapes
 ];
 
 class _ProductsState extends State<Products> {
+  int i = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -81,7 +83,7 @@ class _ProductsState extends State<Products> {
                                   CachedNetworkImage(
                                     height: 100,
                                     width: 100,
-                                    imageUrl: productImages[index].toString(),
+                                    imageUrl: productImages[i].toString(),
                                     placeholder: (context, url) =>
                                         CircularProgressIndicator(),
                                     errorWidget: (context, url, error) =>
