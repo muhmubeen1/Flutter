@@ -8,15 +8,37 @@ class Products extends StatefulWidget {
   State<Products> createState() => _ProductsState();
 }
 
-List<String> productNames = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-List<String> productUnits = ['kg', 'dozen', 'kg', 'kg', 'kg'];
-List<String> productPrices = ['3.50', '1.20', '4.00', '5.50', '7.00'];
+// List of product names of fruits
+List<String> productNames = [
+  'Apple',
+  'Banana',
+  'Cherry',
+  'Date',
+  'Elderberry',
+  'Fig',
+  'Grapes'
+];
+// List of product units
+List<String> productUnits = ['kg', 'dozen', 'kg', 'kg', 'kg', 'kg', 'kg'];
+// List of product prices
+List<String> productPrices = [
+  '3.50',
+  '1.20',
+  '4.00',
+  '5.50',
+  '7.00',
+  '6.00',
+  '2.50'
+];
+// List of product images
 List<String> productImages = [
-  'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce', // Apple
-  'https://images.unsplash.com/photo-1574226516831-e1dff420e38e', // Banana
-  'https://images.unsplash.com/photo-1592928300230-6a7b4e6a234f', // Cherry
-  'https://images.unsplash.com/photo-1571790076043-49b4b4e84fa5', // Date
-  'https://images.unsplash.com/photo-1592078615339-4e08c0f53d8d' // Elderberry
+  'https://pngimg.com/uploads/apple/apple_PNG12405.png', // Apple
+  'https://www.vecteezy.com/png/4323946-banana', // Banana
+  'https://www.vecteezy.com/png/2951475-cherry', // Cherry
+  'https://www.vecteezy.com/png/4719835-date', // Date
+  'https://www.vecteezy.com/png/4717488-elderberry', // Elderberry
+  'https://www.vecteezy.com/png/4202822-fig', // Fig
+  'https://www.vecteezy.com/png/4325930-grapes' // Grapes
 ];
 
 class _ProductsState extends State<Products> {
@@ -25,40 +47,55 @@ class _ProductsState extends State<Products> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.blueGrey,
-              title: Text("Products"),
-              centerTitle: true,
-              actions: [
-                Center(
-                  child: Badge(
-                    badgeContent: Text("0"),
-                    badgeAnimation: BadgeAnimation.fade(
-                      animationDuration: Duration(milliseconds: 100),
-                    ),
-                    child: Icon(Icons.shopping_cart_outlined),
+          appBar: AppBar(
+            backgroundColor: Colors.blueGrey,
+            title: Text("Products"),
+            centerTitle: true,
+            actions: [
+              Center(
+                child: Badge(
+                  badgeContent: Text("0"),
+                  badgeAnimation: BadgeAnimation.fade(
+                    animationDuration: Duration(milliseconds: 100),
                   ),
+                  child: Icon(Icons.shopping_cart_outlined),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
-              ],
-            ),
-            body: SafeArea(
-                child: ListView.builder(
-              itemCount: productNames.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CachedNetworkImage(
-                    imageUrl: productImages[index],
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
-                  title: Text(productNames[index]),
-                  subtitle: Text(
-                      'Unit: ${productUnits[index]}, Price: \$${productPrices[index]}'),
-                );
-              },
-            ))));
+              ),
+              SizedBox(
+                width: 15,
+              ),
+            ],
+          ),
+          body: SafeArea(
+              child: Column(
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                      itemCount: productNames.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  CachedNetworkImage(
+                                    height: 100,
+                                    width: 100,
+                                    imageUrl: productImages[index].toString(),
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  Text(index.toString())
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      }))
+            ],
+          )),
+        ));
   }
 }
