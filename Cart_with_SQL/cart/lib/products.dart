@@ -76,23 +76,55 @@ class _ProductsState extends State<Products> {
                       itemCount: productNames.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          child: Column(
-                            children: [
-                              Row(
+                          child: SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CachedNetworkImage(
-                                    height: 100,
-                                    width: 100,
-                                    imageUrl: productImages[i].toString(),
-                                    placeholder: (context, url) =>
-                                        CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                  Text(index.toString())
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      CachedNetworkImage(
+                                        height: 100,
+                                        width: 100,
+                                        imageUrl: productImages[i].toString(),
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            productNames[index].toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            productUnits[index].toString() +
+                                                " " +
+                                                r"$" +
+                                                productPrices[index].toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
+                              ),
+                            ),
                           ),
                         );
                       }))
