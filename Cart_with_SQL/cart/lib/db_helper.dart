@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 
 import 'package:cart/cart_model.dart';
+import 'package:path/path.dart';
 import "package:path_provider/path_provider.dart";
 import 'package:sqflite_common/sqflite.dart';
 
@@ -16,7 +17,7 @@ class DbHelper {
 
   initDb() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = '${documentDirectory.path}cart.db';
+    String path = join(documentDirectory.path, 'cart.db');
     var db = await openDatabase(
       path,
       version: 1,
