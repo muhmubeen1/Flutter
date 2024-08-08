@@ -1,6 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cart/cart_model.dart';
+import 'package:cart/cart_provider.dart';
+import 'package:cart/db_helper.dart';
 import 'package:flutter/material.dart' hide Badge;
+import 'package:provider/provider.dart';
 
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);
@@ -8,6 +12,7 @@ class Products extends StatefulWidget {
   State<Products> createState() => _ProductsState();
 }
 
+DbHelper? dbHelper = DbHelper();
 // List of product names of fruits
 List<String> productNames = [
   'Apple',
@@ -21,15 +26,7 @@ List<String> productNames = [
 // List of product units
 List<String> productUnits = ['kg', 'dozen', 'kg', 'kg', 'kg', 'kg', 'kg'];
 // List of product prices
-List<String> productPrices = [
-  '3.50',
-  '1.20',
-  '4.00',
-  '5.50',
-  '7.00',
-  '6.00',
-  '2.50'
-];
+List<double> productPrices = [3.50, 1.20, 4.00, 5.50, 7.00, 6.00, 2.50];
 // List of product images
 List<String> productImages = [
   './images/apple.png', // Apple
@@ -46,6 +43,7 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -56,7 +54,14 @@ class _ProductsState extends State<Products> {
             actions: [
               Center(
                 child: Badge(
-                  badgeContent: Text("0"),
+                  badgeContent: Consumer<CartProvider>(
+                    builder: (context, value, child) {
+                      return Text(
+                        value.getCounter().toString(),
+                        style: TextStyle(color: Colors.white),
+                      );
+                    },
+                  ),
                   badgeAnimation: BadgeAnimation.fade(
                     animationDuration: Duration(milliseconds: 100),
                   ),
@@ -129,16 +134,49 @@ class _ProductsState extends State<Products> {
                                             ),
                                             Align(
                                               alignment: Alignment.bottomRight,
-                                              child: Container(
-                                                height: 50,
-                                                width: 80,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.green,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5)),
-                                                child: Center(
-                                                  child: Text("Add to Cart"),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  dbHelper!
+                                                      .insert(Cart(
+                                                          productID:
+                                                              index.toString(),
+                                                          productName:
+                                                              productNames[index]
+                                                                  .toString(),
+                                                          intialPrice:
+                                                              productPrices[
+                                                                  index],
+                                                          productPrice:
+                                                              productPrices[
+                                                                  index],
+                                                          quantity: 1,
+                                                          unitTag: productUnits[
+                                                              index],
+                                                          image:
+                                                              productImages[i],
+                                                          id: index))
+                                                      .then((onValue) {
+                                                    print(
+                                                        "Product added to cart !");
+                                                    cart.addTotalPrice(
+                                                        productPrices[index]);
+                                                    cart.addCounter();
+                                                  }).onError(
+                                                          (error, stackTrace) {
+                                                    print(error);
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 80,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.green,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5)),
+                                                  child: Center(
+                                                    child: Text("Add to Cart"),
+                                                  ),
                                                 ),
                                               ),
                                             )
