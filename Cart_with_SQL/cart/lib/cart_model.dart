@@ -2,14 +2,14 @@ class Cart {
   final int? id;
   final String? productID;
   final String? productName;
-  final int? intialPrice;
-  final int? productPrice;
+  final double? intialPrice;
+  final double? productPrice;
   final int? quantity;
   final String? unitTag;
   final String? image;
 
   Cart({
-    this.id,
+    required this.id,
     required this.productID,
     required this.productName,
     required this.intialPrice,
