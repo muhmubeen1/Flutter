@@ -1,9 +1,12 @@
 import 'package:cart/cart_provider.dart';
 import 'package:cart/products.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
