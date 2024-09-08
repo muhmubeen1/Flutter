@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
+// Define a custom enum to represent the theme modes
+enum AppThemeMode { light, dark, custom }
+
 class DarkThemeProvider with ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.light;
+  AppThemeMode _themeMode = AppThemeMode.light; // Default to light theme
 
-  ThemeMode get themeMode => _themeMode;
+  // Getter for current theme mode
+  AppThemeMode get themeMode => _themeMode;
 
-  void toggleTheme(ThemeMode? mode) {
-    if (mode != null) {
-      _themeMode = mode;
-      notifyListeners(); // Notify listeners to rebuild the UI
-    }
+  // Method to switch between the themes
+  void setThemeMode(AppThemeMode themeMode) {
+    _themeMode = themeMode;
+    notifyListeners();
   }
 }
